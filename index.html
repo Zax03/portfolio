@@ -1277,6 +1277,30 @@
       else if (e.key === 'ArrowRight') lbNext();
     });
 
+    /* 灯箱触摸滑动切换 */
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    const SWIPE_THRESHOLD = 50;
+
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      const dx = touchEndX - touchStartX;
+      const dy = touchEndY - touchStartY;
+      // 只在水平滑动距离大于垂直滑动距离且超过阈值时触发切换
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_THRESHOLD) {
+        if (dx < 0) lbNext();   // 左滑 → 下一张
+        else lbPrev();           // 右滑 → 上一张
+      }
+    }, { passive: true });
+
     /* 建筑作品集轮播图片点击 → 灯箱 */
     carouselTrack.addEventListener('click', (e) => {
       const item = e.target.closest('.carousel-item');
