@@ -311,9 +311,9 @@
       gap: 24px;
     }
     .works-grid .work-card:last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-      max-width: 50%;
-      justify-self: center;
+      grid-column: auto;
+      max-width: 100%;
+      justify-self: auto;
     }
     .work-card {
       background: var(--bg-card); border: 1px solid var(--border);
@@ -544,11 +544,7 @@
     @media (max-width: 1024px) {
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .works-grid { grid-template-columns: 1fr; }
-      .works-grid .work-card:last-child:nth-child(odd) {
-        grid-column: auto;
-        max-width: 100%;
-        justify-self: auto;
-      }
+
     }
     @media (max-width: 768px) {
       .carousel-item { width: 260px; height: 180px; }
@@ -1077,7 +1073,7 @@
         <!-- 项目5: GAN对抗神经网络 -->
         <article class="work-card reveal">
           <div class="work-image">
-            <img src="images/thumbs/gan_rule_and_irregular_area.jpg" data-full="images/gan_rule_and_irregular_area.jpg" data-lightbox="gan" alt="GAN对抗神经网络 - 规则区域与非规则区域" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
+            <img src="images/thumbs/gan_collage_9grid.jpg" data-full="images/gan_collage_9grid.jpg" data-lightbox="gan" alt="GAN对抗神经网络 - 规则区域与非规则区域" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
           </div>
           <div class="work-info">
             <h3 class="work-title">GAN对抗神经网络</h3>
@@ -1209,7 +1205,7 @@
     /* 空间设计作品轮播 */
     const archImages = [
       // GAN
-      { src: 'images/gan_rule_and_irregular_area.jpg', thumb: 'images/thumbs/gan_rule_and_irregular_area.jpg', proj: 'GAN对抗神经网络', label: '规则区域与非规则区域', desc: '通过对GAN模型数据库的建立，可以对一定规则下的空间进行快速迭代，而作为我们更多的可以作为结果的决策者对各种原型进行比对筛选' },
+      { src: 'images/gan_collage_9grid.jpg', thumb: 'images/thumbs/gan_collage_9grid.jpg', proj: 'GAN对抗神经网络', label: 'GAN九宫格拼图 — 规则区域与非规则区域', desc: '通过对GAN模型数据库的建立，可以对一定规则下的空间进行快速迭代，而作为我们更多的可以作为结果的决策者对各种原型进行比对筛选' },
       // More Than Human (UCL RC7)
       { src: 'images/01_more_than_human_cover_-_research_cluster_7.png', thumb: 'images/thumbs/01_more_than_human_cover_-_research_cluster_7.jpg',proj: 'MORE THAN HUMAN', label: 'Cover — Research Cluster 7' },
       { src: 'images/02_more_than_human_procedural_design_-_organic_lattice.png', thumb: 'images/thumbs/02_more_than_human_procedural_design_-_organic_lattice.jpg',proj: 'MORE THAN HUMAN', label: 'Procedural Design — Organic Lattice' },
@@ -1285,7 +1281,7 @@
       '白银之城-3': '<span class="desc-label">// URBAN LAYOUT & VEHICLE</span>第二个问题其实会更加直观一些：城区结构与载具的运动能力的适配性决定了最终都市题材大世界的漫游体验，区域布局规划需要与3C能力相互协调，载具速度的快慢影响了地块内的POI、任务点等重要内容的发现率与体验节奏。<br><br>空中飞行既需要通过体力、软边界控制玩家的可达距离与飞行时间，同时也避免飞的过高而导致的内容加载问题。<br><br>玩家"可接受"的范围限制，其实是为了给玩家提供足够有吸引力的地面环境，例如高耸楼群中的空地、狭窄甬道的入口等较为有空间吸引力的内容调动玩家探索的意愿。使得较为无聊的天空和内容丰富的地面进行对比，这样就形成了一种建议探索范围，而爱探索的玩家真触及了空气墙边界，其挫败感也会相应有所降低。'
     };
     const ganDescriptions = {
-      'GAN对抗神经网络 - 规则区域与非规则区域': '<span class="desc-label">// DESIGN NOTES</span>通过对GAN模型数据库的建立，可以对一定规则下的空间进行快速迭代，而作为我们更多的可以作为结果的决策者对各种原型进行比对筛选'
+      'GAN九宫格拼图 — 规则区域与非规则区域': '<span class="desc-label">// DESIGN NOTES</span>通过对GAN模型数据库的建立，可以对一定规则下的空间进行快速迭代，而作为我们更多的可以作为结果的决策者对各种原型进行比对筛选'
     };
     function updateLightbox(index) {
       currentLBIndex = index;
