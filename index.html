@@ -1385,10 +1385,24 @@
         // 收集该work-image下所有img
         const imgs = wi.querySelectorAll('img[data-lightbox], img[src^="data:"]');
         if (imgs.length === 0) return;
+        const clickedImg = e.target.closest('img');
+        const lbAttr = clickedImg ? clickedImg.dataset.lightbox : null;
+
+        // 如果是GAN项目，从archImages加载所有GAN条目
+        if (lbAttr === 'gan') {
+          const ganImgs = archImages.filter(img => img.proj === 'GAN对抗神经网络');
+          if (ganImgs.length > 0) {
+            const images = ganImgs.map(img => ({
+              src: img.src,
+              alt: img.label || img.proj
+            }));
+            openLightbox(images, 0);
+            return;
+          }
+        }
+
         const images = [];
         let startIdx = 0;
-        // 如果点击了具体某张img，从那张开始
-        const clickedImg = e.target.closest('img');
         imgs.forEach((img, idx) => {
           images.push({ src: img.dataset.full || img.src, alt: img.alt || '' });
           if (img === clickedImg) startIdx = idx;
