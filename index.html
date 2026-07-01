@@ -1077,10 +1077,7 @@
         <!-- 项目5: GAN对抗神经网络 -->
         <article class="work-card reveal">
           <div class="work-image">
-            <div class="work-image-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-              <span>PROJECT-05</span>
-            </div>
+            <img src="images/thumbs/gan_rule_and_irregular_area.jpg" data-full="images/gan_rule_and_irregular_area.jpg" data-lightbox="gan" alt="GAN对抗神经网络 - 规则区域与非规则区域" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
           </div>
           <div class="work-info">
             <h3 class="work-title">GAN对抗神经网络</h3>
@@ -1148,7 +1145,7 @@
     <button class="lightbox-close" id="lightboxClose">
       <svg viewBox="0 0 24 24" fill="none"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
     </button>
-    <div class="lightbox-counter" id="lightboxCounter"><span class="lb-cur">1</span> / 32</div>
+    <div class="lightbox-counter" id="lightboxCounter"><span class="lb-cur">1</span> / 33</div>
     <button class="lightbox-nav lightbox-nav--prev" id="lightboxPrev">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
@@ -1211,6 +1208,8 @@
 
     /* 空间设计作品轮播 */
     const archImages = [
+      // GAN
+      { src: 'images/gan_rule_and_irregular_area.jpg', thumb: 'images/thumbs/gan_rule_and_irregular_area.jpg', proj: 'GAN对抗神经网络', label: '规则区域与非规则区域', desc: '通过对GAN模型数据库的建立，可以对一定规则下的空间进行快速迭代，而作为我们更多的可以作为结果的决策者对各种原型进行比对筛选' },
       // More Than Human (UCL RC7)
       { src: 'images/01_more_than_human_cover_-_research_cluster_7.png', thumb: 'images/thumbs/01_more_than_human_cover_-_research_cluster_7.jpg',proj: 'MORE THAN HUMAN', label: 'Cover — Research Cluster 7' },
       { src: 'images/02_more_than_human_procedural_design_-_organic_lattice.png', thumb: 'images/thumbs/02_more_than_human_procedural_design_-_organic_lattice.jpg',proj: 'MORE THAN HUMAN', label: 'Procedural Design — Organic Lattice' },
@@ -1285,6 +1284,9 @@
       '白银之城-2': '<span class="desc-label">// DESIGN NOTES</span>产生第一个问题的原因很简单，我们既需要保证真实复杂的建筑空间给人形态的角色进行探索体验，也需要让飞行状态下尽量不需要或者说避免跟复杂的碰撞结构做"纠缠"。<br><br>那么针对不同玩家3C状态下的碰撞结构的处理方式还会受到另一个因素的影响——资产设计。白银之城项目的概念设计自由度是非常高的，对于需要"特殊对待"的大型POI资产而言需要用比较原始的方式处理碰撞结构，以达到同时满足人形态和载具形态。<br><br>但是开放世界都市很难避免大量使用PCG生成的建筑结构体，如何对具有相同生成逻辑但表现结果不同的建筑群体做碰撞结构的处理是比较考究的，尤其是引擎不能够支持我们在资产侧进行两套碰撞的调用，那么整理规划出不同PCG的结构形式与生成逻辑则是必不可少的工作。<br><br>说完碰撞的"外部因素"，飞行载具的"内在功能"也是不可或缺的，灵活机动的控制下往往需要避障功能的支持，识别哪些结构需要避障，如何判断避障角度等检测功能会使得大世界飞行体验增色不少。',
       '白银之城-3': '<span class="desc-label">// URBAN LAYOUT & VEHICLE</span>第二个问题其实会更加直观一些：城区结构与载具的运动能力的适配性决定了最终都市题材大世界的漫游体验，区域布局规划需要与3C能力相互协调，载具速度的快慢影响了地块内的POI、任务点等重要内容的发现率与体验节奏。<br><br>空中飞行既需要通过体力、软边界控制玩家的可达距离与飞行时间，同时也避免飞的过高而导致的内容加载问题。<br><br>玩家"可接受"的范围限制，其实是为了给玩家提供足够有吸引力的地面环境，例如高耸楼群中的空地、狭窄甬道的入口等较为有空间吸引力的内容调动玩家探索的意愿。使得较为无聊的天空和内容丰富的地面进行对比，这样就形成了一种建议探索范围，而爱探索的玩家真触及了空气墙边界，其挫败感也会相应有所降低。'
     };
+    const ganDescriptions = {
+      'GAN对抗神经网络 - 规则区域与非规则区域': '<span class="desc-label">// DESIGN NOTES</span>通过对GAN模型数据库的建立，可以对一定规则下的空间进行快速迭代，而作为我们更多的可以作为结果的决策者对各种原型进行比对筛选'
+    };
     function updateLightbox(index) {
       currentLBIndex = index;
       const img = lbImages[index];
@@ -1293,7 +1295,7 @@
       lightboxInfo.innerHTML = img.alt;
       lightboxCounter.innerHTML = '<span class="lb-cur">' + (index + 1) + '</span> / ' + lbImages.length;
       // 显示设计描述（支持多项目）
-      const desc = (yuanmengDescriptions[img.alt] || silverDescriptions[img.alt]);
+      const desc = (yuanmengDescriptions[img.alt] || silverDescriptions[img.alt] || ganDescriptions[img.alt]);
       if (desc) {
         lightboxDesc.innerHTML = desc;
         lightboxDesc.classList.add('active');
