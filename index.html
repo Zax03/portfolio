@@ -545,7 +545,9 @@
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .works-grid { grid-template-columns: 1fr; }
       .works-grid .work-card:last-child:nth-child(odd) {
+        grid-column: auto;
         max-width: 100%;
+        justify-self: auto;
       }
     }
     @media (max-width: 768px) {
