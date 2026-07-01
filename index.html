@@ -443,7 +443,7 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ==================== 空间设计作品集轮播 ==================== */
+    /* ==================== 空间设计作品轮播 ==================== */
     .architecture { background: var(--bg-secondary); overflow: hidden; }
     .carousel-wrapper {
       position: relative; width: 100%; overflow: hidden;
@@ -517,24 +517,24 @@
       100% { transform: translateX(-50%); }
     }
     .arch-projects {
-      display: flex; gap: 20px; flex-wrap: wrap;
-      margin-top: 40px; justify-content: center;
+      margin-top: 40px; max-width: 680px; margin-left: auto; margin-right: auto;
+      border: 1px solid var(--border); background: var(--bg-card);
     }
-    .arch-proj-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      padding: 20px 24px; flex: 1; min-width: 220px; max-width: 280px;
-      transition: border-color 0.3s;
+    .arch-proj-item {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
     }
-    .arch-proj-card:hover { border-color: var(--accent); }
-    .arch-proj-card h4 {
+    .arch-proj-item:last-child { border-bottom: none; }
+    .arch-proj-item:hover { background: rgba(255,107,43,0.03); }
+    .arch-proj-item h4 {
       font-size: 14px; font-weight: 700; margin-bottom: 6px;
       color: var(--text-primary);
     }
-    .arch-proj-card h4 span { color: var(--accent); }
-    .arch-proj-card p {
+    .arch-proj-item h4 span { color: var(--accent); }
+    .arch-proj-item p {
       font-size: 12px; color: var(--text-muted); line-height: 1.6;
     }
-    .arch-proj-card .arch-year {
+    .arch-proj-item .arch-year {
       font-family: var(--font-mono); font-size: 10px;
       color: var(--accent); letter-spacing: 0.1em;
       margin-bottom: 6px;
@@ -552,7 +552,6 @@
     }
     @media (max-width: 768px) {
       .carousel-item { width: 260px; height: 180px; }
-      .arch-proj-card { min-width: 100%; max-width: 100%; }
       .nav-links { display: none; }
       .nav-links.open {
         display: flex; flex-direction: column;
@@ -1102,35 +1101,35 @@
     </div>
   </section>
 
-  <!-- 空间设计作品集 Section -->
+  <!-- 空间设计作品 Section -->
   <section class="architecture" id="architecture">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-label">// ARCHITECTURE PORTFOLIO</p>
-        <h2 class="section-title">空间设计作品集</h2>
+        <h2 class="section-title">空间设计作品</h2>
       </div>
       <div class="arch-projects reveal">
-        <div class="arch-proj-card">
+        <div class="arch-proj-item">
           <div class="arch-year">2020 — 2021 · UCL RC7</div>
           <h4>More Than <span>Human</span></h4>
           <p>深度学习辅助建筑设计工具开发 — 构建GAN，将人类与非人类空间融合为一体化设计语言</p>
         </div>
-        <div class="arch-proj-card">
+        <div class="arch-proj-item">
           <div class="arch-year">2019 · 福建</div>
           <h4>RE-<span>CIRCLE</span></h4>
           <p>福建土楼内部空间改造 — 解决居民与游客动线矛盾，传统结构的现代转译</p>
         </div>
-        <div class="arch-proj-card">
+        <div class="arch-proj-item">
           <div class="arch-year">2018 · 甘肃</div>
           <h4>CO-<span>HEMISPHERE</span></h4>
           <p>兰州地质博物馆设计 — 地质沉积形态生成建筑体量，夯土与白混凝土的材质对话</p>
         </div>
-        <div class="arch-proj-card">
+        <div class="arch-proj-item">
           <div class="arch-year">2017 · 日本</div>
           <h4>Under the <span>Mesh</span></h4>
           <p>小豆岛河道旅游规划 — 编织网状建筑群重构生态与文旅空间</p>
         </div>
-        <div class="arch-proj-card">
+        <div class="arch-proj-item">
           <div class="arch-year">2016 — 2017 · 东京</div>
           <h4>Shimokita <span>Rooftop</span></h4>
           <p>下北泽集合住宅设计 — 屋顶露台群岛激活高密度居住区的社交空间</p>
@@ -1210,7 +1209,7 @@
     }, { rootMargin: '0px 0px -80px 0px', threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    /* 空间设计作品集轮播 */
+    /* 空间设计作品轮播 */
     const archImages = [
       // More Than Human (UCL RC7)
       { src: 'images/01_more_than_human_cover_-_research_cluster_7.png', thumb: 'images/thumbs/01_more_than_human_cover_-_research_cluster_7.jpg',proj: 'MORE THAN HUMAN', label: 'Cover — Research Cluster 7' },
@@ -1359,7 +1358,7 @@
       }
     }, { passive: true });
 
-    /* 空间设计作品集轮播图片点击 → 灯箱 */
+    /* 空间设计作品轮播图片点击 → 灯箱 */
     carouselTrack.addEventListener('click', (e) => {
       const item = e.target.closest('.carousel-item');
       if (!item) return;
