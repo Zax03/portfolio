@@ -1392,7 +1392,7 @@
         // 如果点击了具体某张img，从那张开始
         const clickedImg = e.target.closest('img');
         imgs.forEach((img, idx) => {
-          images.push({ src: img.src, alt: img.alt || '' });
+          images.push({ src: img.dataset.full || img.src, alt: img.alt || '' });
           if (img === clickedImg) startIdx = idx;
         });
         if (images.length > 0) openLightbox(images, startIdx);
