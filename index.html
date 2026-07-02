@@ -1385,7 +1385,12 @@
         // 收集该work-image下所有img
         const imgs = wi.querySelectorAll('img[data-lightbox], img[src^="data:"]');
         if (imgs.length === 0) return;
-        const clickedImg = e.target.closest('img');
+
+        // 优先用 e.target.closest，fallback 取 work-image 内第一个 img
+        let clickedImg = e.target.closest('img');
+        if (!clickedImg || !wi.contains(clickedImg)) {
+          clickedImg = imgs[0];
+        }
         const lbAttr = clickedImg ? clickedImg.dataset.lightbox : null;
 
         // 如果是GAN项目，从archImages加载所有GAN条目
