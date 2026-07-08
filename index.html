@@ -743,6 +743,36 @@
   }
   .yuanmeng-slide:nth-child(1){animation:yuanmengFade 8s infinite 0s}
   .yuanmeng-slide:nth-child(2){animation:yuanmengFade 8s infinite 4s}
+
+    /* ==================== 打印/PDF样式 ==================== */
+    @media print {
+      .bg-grid, .bg-scanline, .bg-texture, .bg-geo-dots,
+      .nav, .hero-flashlight-canvas, .hero-map-texture,
+      .corner, .coord, .avatar-rings, .hero-scroll,
+      .lightbox-overlay, #downloadPdfBtn { display: none !important; }
+      body { background: #fff !important; color: #222 !important; font-size: 11pt !important; }
+      section { padding: 30px 0 !important; page-break-inside: avoid; }
+      .about { background: #fff !important; }
+      .contact { background: #fff !important; }
+      .hero { min-height: auto !important; padding: 40px 0 !important; }
+      .hero-content { color: #222 !important; }
+      .hero-name { color: #222 !important; text-shadow: none !important; }
+      .hero-name span { color: #FF6B2B !important; }
+      .hero-tagline { color: #444 !important; }
+      .section-title { color: #222 !important; }
+      .section-label { color: #FF6B2B !important; }
+      .work-card { border: 1px solid #ddd !important; break-inside: avoid; }
+      .work-title { color: #222 !important; }
+      .skill-tag { border-color: #FF6B2B !important; color: #FF6B2B !important; background: transparent !important; }
+      .stat-card { border: 1px solid #ddd !important; }
+      .stat-number { color: #FF6B2B !important; }
+      .contact-link { color: #444 !important; }
+      .carousel-track { animation: none !important; }
+      .carousel-wrapper::before, .carousel-wrapper::after { display: none !important; }
+      img { max-width: 100% !important; }
+      .works-grid { grid-template-columns: 1fr !important; }
+      .about-grid { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
@@ -862,7 +892,13 @@
       <div class="reveal">
         <p class="contact-title">GET IN TOUCH</p>
         <div class="contact-divider"></div>
-        <div class="contact-links">
+        <div style="margin-bottom:32px;">
+      <a href="#" id="downloadPdfBtn" style="display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:13px;color:var(--accent);border:1px solid var(--accent);padding:10px 28px;letter-spacing:0.08em;transition:all 0.3s;text-decoration:none;background:var(--accent-dim);" onmouseover="this.style.background='var(--accent)';this.style.color='var(--bg-primary)'" onmouseout="this.style.background='var(--accent-dim)';this.style.color='var(--accent)'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        DOWNLOAD PDF
+      </a>
+    </div>
+    <div class="contact-links">
           <a href="mailto:510963224@qq.com" class="contact-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -902,7 +938,7 @@
             许展，<strong>关卡策划(LD)</strong>，建筑学硕士。擅长将建筑学中的空间表达、审美与系统性设计思维转化为游戏关卡体验。曾参与二次元开放世界ARPG、刺客信条系列等项目的关卡设计，负责区域规划、POI设计、难度曲线规划及载具玩法等核心模块。乐于探索领域边界，将主动学习作为生活的一部分。
           </p>
           <p class="about-intro" style="margin-top:12px;">
-            AI如何帮助一个游戏设计师更加便捷、周全的完善并落地自己的想法是最近我一直在探索的方向，从相关数据统计整理到自行处理一些文件bug，再到完整产出项目匹配的玩法内容策划案等等，在不断的实践探索中寻找新时代游戏设计师的创作方式。
+            设计理念上注重「空间叙事」与「系统思维」的结合——善于用建筑学的空间序列感塑造关卡节奏，用数据驱动的迭代方法论验证设计决策。追求让玩家在不知不觉中被打动的关卡体验，而非单纯的数值堆叠。
           </p>
           <div class="about-stats">
             <div class="stat-card">
@@ -936,17 +972,19 @@
           </div>
           <div class="skills-title" style="margin-top:8px;">教育经历 // EDUCATION</div>
           <div class="edu-item">
-            <div class="edu-year">2020 — 2021 · 英国伦敦</div>
-            <div class="edu-school">伦敦大学学院 (UCL) · QS排名前十</div>
-            <div class="edu-detail">建筑学专业 · 硕士 · 毕业等级：Distinction（前5%）</div>
-            <div class="edu-detail">研究方向：机器学习 — 构建GAN，作用在建筑设计及城市设计等系统性交互式产品设计</div>
+            <div class="edu-year">2020 — 2021</div>
+            <div class="edu-school">伦敦大学学院 (UCL) · 建筑学硕士 · Distinction</div>
           </div>
           <div class="edu-item">
-            <div class="edu-year">2014 — 2018 · 四川成都</div>
-            <div class="edu-school">四川大学 · 985院校</div>
-            <div class="edu-detail">环境艺术设计专业 · 学士 · GPA：3.5/4</div>
-            <div class="edu-detail">涉及科目：建筑设计、城市规划、景观设计</div>
-            <div class="edu-detail">获得荣誉：连获多年国家奖学金</div>
+            <div class="edu-year">2014 — 2018</div>
+            <div class="edu-school">四川大学 · 环境艺术设计学士 · 国家奖学金</div>
+          </div>
+          <div class="skills-title" style="margin-top:16px;">可提供材料 // AVAILABLE UPON REQUEST</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.8;letter-spacing:0.02em;">
+            · 完整项目作品集 PDF<br>
+            · 关卡灰盒/白模演示视频<br>
+            · 设计策划案节选<br>
+            · 推荐信 & 离职证明
           </div>
         </div>
       </div>
@@ -1977,6 +2015,12 @@
         /* 初始化 */
     window.dispatchEvent(new Event('scroll'));
   </script>
+<script>
+// PDF下载功能 - 使用浏览器打印为PDF
+document.getElementById('downloadPdfBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.print();
+});
+</script>
 </body>
 </html>
-
