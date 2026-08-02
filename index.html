@@ -734,10 +734,11 @@
   @keyframes silverFade {
     0%,21%{opacity:1} 25%,95%{opacity:0} 100%{opacity:1}
   }
-  .silver-slide:nth-child(1){animation:silverFade 12s infinite 0s}
-  .silver-slide:nth-child(2){animation:silverFade 12s infinite 3s}
-  .silver-slide:nth-child(3){animation:silverFade 12s infinite 6s}
-  .silver-slide:nth-child(4){animation:silverFade 12s infinite 9s}
+  .silver-slide:nth-child(1){animation:silverFade 15s infinite 0s}
+  .silver-slide:nth-child(2){animation:silverFade 15s infinite 3s}
+  .silver-slide:nth-child(4){animation:silverFade 15s infinite 6s}
+  .silver-slide:nth-child(6){animation:silverFade 15s infinite 9s}
+  .silver-slide:nth-child(8){animation:silverFade 15s infinite 12s}
   /* 元梦之星轮播 */
   @keyframes yuanmengFade {
     0%,45%{opacity:1} 50%,95%{opacity:0} 100%{opacity:1}
@@ -775,8 +776,114 @@
       .about-grid { grid-template-columns: 1fr !important; }
     }
   </style>
+
+  <!-- 手势密码锁屏 -->
+  <style>
+    #gesture-lock {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #0a0a0a;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: 'Courier New', monospace;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #gesture-lock.unlocked {
+      opacity: 0; visibility: hidden; pointer-events: none;
+    }
+    #gesture-lock .gl-title {
+      color: #fff; font-size: 13px; letter-spacing: 4px;
+      text-transform: uppercase; margin-bottom: 8px;
+      opacity: 0.7;
+    }
+    #gesture-lock .gl-subtitle {
+      color: #888; font-size: 11px; letter-spacing: 2px;
+      margin-bottom: 28px; min-height: 16px;
+    }
+    #gesture-lock .gl-canvas-wrap {
+      position: relative; width: 270px; height: 270px;
+    }
+    #gesture-lock canvas {
+      position: absolute; inset: 0;
+      width: 270px; height: 270px;
+      touch-action: none;
+    }
+    #gesture-lock .gl-dots {
+      position: absolute; inset: 0;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      padding: 20px; gap: 0;
+    }
+    #gesture-lock .gl-dot {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #gesture-lock .gl-dot-inner {
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: transparent;
+      transition: all 0.15s ease;
+    }
+    #gesture-lock .gl-dot.active .gl-dot-inner {
+      border-color: #FF6B2B;
+      background: #FF6B2B;
+      box-shadow: 0 0 12px rgba(255,107,43,0.5);
+      transform: scale(1.3);
+    }
+    #gesture-lock .gl-reset {
+      margin-top: 24px;
+      color: rgba(255,255,255,0.3);
+      font-size: 10px; letter-spacing: 2px;
+      cursor: pointer; border: none; background: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    #gesture-lock .gl-reset:hover { color: #FF6B2B; }
+    #gesture-lock .gl-error {
+      color: #ff4444; font-size: 11px;
+      margin-top: 12px; min-height: 16px;
+      letter-spacing: 1px;
+    }
+    @keyframes glShake {
+      0%,100% { transform: translateX(0); }
+      20%,60% { transform: translateX(-8px); }
+      40%,80% { transform: translateX(8px); }
+    }
+    #gesture-lock .gl-canvas-wrap.shake {
+      animation: glShake 0.4s ease;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- 手势密码锁屏 -->
+  <div id="gesture-lock">
+    <div class="gl-title">// ACCESS CONTROL</div>
+
+    <!-- 申请访问界面 -->
+    <div id="gl-request" style="text-align:center; max-width:320px;">
+      <p style="color:rgba(255,255,255,0.6); font-size:12px; line-height:1.8; margin-bottom:20px; letter-spacing:1px;">
+        本作品集为邀请制访问<br>请联系作者获取访问权限
+      </p>
+      <div style="color:rgba(255,255,255,0.4); font-size:11px; line-height:2; margin-bottom:24px;">
+        <div>EMAIL: <span style="color:#FF6B2B;">510963224@qq.com</span></div>
+      </div>
+      <button class="gl-reset" id="gl-unlock-btn" style="display:inline-block; border:1px solid rgba(255,107,43,0.4); padding:8px 24px; font-size:11px; color:#FF6B2B;">
+        已获取图案？点击解锁 →
+      </button>
+    </div>
+
+    <!-- 手势绘制界面（默认隐藏） -->
+    <div id="gl-draw-area" style="display:none;">
+      <div class="gl-subtitle" id="gl-msg">绘制解锁图案</div>
+      <div class="gl-canvas-wrap" id="gl-wrap">
+        <div class="gl-dots" id="gl-dots"></div>
+        <canvas id="gl-canvas" width="270" height="270"></canvas>
+      </div>
+      <div class="gl-error" id="gl-err"></div>
+      <button class="gl-reset" id="gl-reset" style="display:none;">重新设置</button>
+      <button class="gl-reset" id="gl-back" style="margin-top:12px;">← 返回</button>
+    </div>
+  </div>
 
   <!-- 背景装饰 -->
   <div class="bg-texture"></div>
@@ -1005,6 +1112,8 @@
             <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:#FF6B2B;font-size:11px;padding:2px 8px;border-radius:3px;pointer-events:none;">6 笔记</div>
             <img src="images/silver_07_combined.png" alt="白银之城-7" class="silver-slide" data-lightbox="silver" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
             <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:#FF6B2B;font-size:11px;padding:2px 8px;border-radius:3px;pointer-events:none;">7 笔记</div>
+            <img src="images/silver_08_combined.png" alt="白银之城-8" class="silver-slide" data-lightbox="silver" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+            <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:#FF6B2B;font-size:11px;padding:2px 8px;border-radius:3px;pointer-events:none;">8 笔记</div>
           </div>
             <div class="work-info">
             <h3 class="work-title">白银之城</h3>
@@ -1299,7 +1408,8 @@
       '白银之城-4': '<span class="desc-label">// DESIGN NOTES</span>在一个可供潜行刺杀的副本中引导的方式是丰富的，这里面包括了直观层面的灯光、敌人、镜头、UI等，以及更为精巧的场景结构、色彩对比等，给到玩家沉浸感和目标感',
       '白银之城-5': '<span class="desc-label">// DESIGN NOTES</span>线性体验中，连续的场景结构延续了玩家探索的惯性，而规则结构中突然出现的不规则现象则会是调动玩家兴趣的有效方式',
       '白银之城-6': '<span class="desc-label">// DESIGN NOTES</span>叙事副本中往往需要涵盖多种玩法来调整探索结构、调节探索节奏，潜行与刺杀属于狭窄区域中体验较为丰富的小型战斗玩法选择，其也能更好的使玩家沉浸在紧张的环境氛围当中。而如果在装饰复杂的环境中，玩家如何发现巡逻怪？如何选择刺杀、躲避路径？如何判断何时应该潜行，都是非常重要的设计课题。',
-      '白银之城-7': '<span class="desc-label">// DESIGN NOTES</span>随着后续资产堆积的方式、通道平台等结构的尺寸，能够直观的给玩家带来体验上的变化，作为关卡策划，同时也需要对场景想传达出来的氛围有所把握，能够在场景后续迭代中准确地向美术、音效部门提出符合氛围的设计需求。'
+      '白银之城-7': '<span class="desc-label">// DESIGN NOTES</span>随着后续资产堆积的方式、通道平台等结构的尺寸，能够直观的给玩家带来体验上的变化，作为关卡策划，同时也需要对场景想传达出来的氛围有所把握，能够在场景后续迭代中准确地向美术、音效部门提出符合氛围的设计需求。',
+      '白银之城-8': '<span class="desc-label">// DESIGN NOTES</span>对于开放世界的载具而言，不但作为被高频率使用的交通工具，其也会承载着玩法、商业化的期待，如何做好开放世界环境下的竞技赛事是当下各开放世界游戏的课题。'
     };
     const ganDescriptions = {
       '// GENERATIVE PROTOTYPE LIBRARY': '<span class="desc-label">// GENERATIVE PROTOTYPE LIBRARY</span>在虚拟空间中施加生成规则得到的结果，由于各个参数因子影响比重的不同，能够为空间提供丰富的原型库',
@@ -1998,6 +2108,328 @@ document.getElementById('downloadPdfBtn').addEventListener('click', function(e) 
   e.preventDefault();
   window.print();
 });
+</script>
+
+<!-- 手势密码逻辑 -->
+<script>
+(function(){
+  const STORAGE_KEY = 'portfolio_gesture_pattern';
+  const OWNER_KEY = 'portfolio_is_owner';
+  const MIN_DOTS = 4;
+  const canvas = document.getElementById('gl-canvas');
+  const ctx = canvas.getContext('2d');
+  const wrap = document.getElementById('gl-wrap');
+  const dotsContainer = document.getElementById('gl-dots');
+  const msgEl = document.getElementById('gl-msg');
+  const errEl = document.getElementById('gl-err');
+  const resetBtn = document.getElementById('gl-reset');
+  const lockEl = document.getElementById('gesture-lock');
+  const requestPanel = document.getElementById('gl-request');
+  const drawArea = document.getElementById('gl-draw-area');
+  const unlockBtn = document.getElementById('gl-unlock-btn');
+  const backBtn = document.getElementById('gl-back');
+
+  // Build 3x3 dot grid
+  const dotPositions = [];
+  for(let i=0;i<9;i++){
+    const dot = document.createElement('div');
+    dot.className = 'gl-dot';
+    dot.dataset.index = i;
+    dot.innerHTML = '<div class="gl-dot-inner"></div>';
+    dotsContainer.appendChild(dot);
+    dotPositions.push({el: dot, index: i});
+  }
+
+  let isDrawing = false;
+  let currentPattern = [];
+  let state = 'init';
+  let savedPattern = null;
+  let firstDraw = null;
+
+  function showRequest(){
+    requestPanel.style.display = 'block';
+    drawArea.style.display = 'none';
+    clearState();
+  }
+  function showDraw(msg){
+    requestPanel.style.display = 'none';
+    drawArea.style.display = 'block';
+    msgEl.textContent = msg || '绘制解锁图案';
+    clearState();
+  }
+
+  // Init: check if pattern exists
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if(stored){
+    savedPattern = stored;
+    state = 'unlock';
+    showDraw('绘制解锁图案');
+  } else {
+    // Check if this is the owner's first visit (setup mode)
+    if(location.hash === '#setup'){
+      state = 'setup1';
+      showDraw('首次设置 — 绘制你的手势密码（至少4个点）');
+    } else {
+      state = 'locked';
+      showRequest();
+    }
+  }
+
+  // "已获取图案" button → show gesture grid
+  unlockBtn.addEventListener('click', ()=>{
+    if(stored){
+      state = 'unlock';
+      showDraw('绘制解锁图案');
+    } else {
+      showDraw('暂未设置图案，请在 #setup 模式下设置');
+    }
+  });
+
+  // "返回" button → back to request screen
+  backBtn.addEventListener('click', ()=>{
+    state = stored ? 'unlock' : 'locked';
+    showRequest();
+  });
+
+  function getDotCenter(index){
+    const el = dotPositions[index].el;
+    const rect = el.getBoundingClientRect();
+    const wrapRect = wrap.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width/2 - wrapRect.left,
+      y: rect.top + rect.height/2 - wrapRect.top
+    };
+  }
+
+  function getPos(e){
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches ? e.touches[0] : e;
+    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+  }
+
+  function findNearestDot(pos){
+    let minDist = 35, nearest = -1;
+    for(let i=0;i<9;i++){
+      const c = getDotCenter(i);
+      const d = Math.hypot(pos.x-c.x, pos.y-c.y);
+      if(d < minDist){ minDist = d; nearest = i; }
+    }
+    return nearest;
+  }
+
+  function drawLine(from, to, color){
+    ctx.beginPath();
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+    ctx.strokeStyle = color || '#FF6B2B';
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+
+  function drawFull(){
+    ctx.clearRect(0,0,270,270);
+    for(let i=1;i<currentPattern.length;i++){
+      const from = getDotCenter(currentPattern[i-1]);
+      const to = getDotCenter(currentPattern[i]);
+      drawLine(from, to);
+    }
+  }
+
+  function clearState(){
+    isDrawing = false;
+    currentPattern = [];
+    dotPositions.forEach(d => d.el.classList.remove('active'));
+    ctx.clearRect(0,0,270,270);
+    errEl.textContent = '';
+  }
+
+  function onComplete(){
+    if(currentPattern.length < MIN_DOTS){
+      errEl.textContent = '至少连接4个点';
+      wrap.classList.add('shake');
+      setTimeout(()=>wrap.classList.remove('shake'), 400);
+      clearState();
+      return;
+    }
+
+    const patternStr = currentPattern.join('-');
+
+    if(state === 'setup1'){
+      firstDraw = patternStr;
+      msgEl.textContent = '再次绘制以确认';
+      clearState();
+      state = 'setup2';
+    } else if(state === 'setup2'){
+      if(patternStr === firstDraw){
+        localStorage.setItem(STORAGE_KEY, patternStr);
+        localStorage.setItem(OWNER_KEY, '1');
+        savedPattern = patternStr;
+        state = 'unlock';
+        msgEl.textContent = '设置成功 ✓';
+        clearState();
+        setTimeout(()=> lockEl.classList.add('unlocked'), 600);
+      } else {
+        errEl.textContent = '图案不匹配，重新开始';
+        wrap.classList.add('shake');
+        setTimeout(()=>wrap.classList.remove('shake'), 400);
+        state = 'setup1';
+        firstDraw = null;
+        msgEl.textContent = '重新绘制手势密码';
+        clearState();
+      }
+    } else if(state === 'unlock'){
+      if(patternStr === savedPattern){
+        // If owner, show reset button
+        if(localStorage.getItem(OWNER_KEY) === '1'){
+          resetBtn.style.display = 'inline-block';
+        }
+        msgEl.textContent = '已解锁';
+        clearState();
+        setTimeout(()=> lockEl.classList.add('unlocked'), 500);
+      } else {
+        errEl.textContent = '图案错误';
+        wrap.classList.add('shake');
+        setTimeout(()=>wrap.classList.remove('shake'), 400);
+        clearState();
+      }
+    }
+  }
+
+  // Mouse events
+  canvas.addEventListener('mousedown', e=>{
+    if(state !== 'setup1' && state !== 'setup2' && state !== 'unlock') return;
+    e.preventDefault();
+    isDrawing = true;
+    const pos = getPos(e);
+    const idx = findNearestDot(pos);
+    if(idx >= 0){
+      currentPattern = [idx];
+      dotPositions[idx].el.classList.add('active');
+    }
+  });
+  canvas.addEventListener('mousemove', e=>{
+    if(!isDrawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    drawFull();
+    if(currentPattern.length > 0){
+      const last = getDotCenter(currentPattern[currentPattern.length-1]);
+      ctx.beginPath();
+      ctx.moveTo(last.x, last.y);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.strokeStyle = 'rgba(255,107,43,0.4)';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+    const idx = findNearestDot(pos);
+    if(idx >= 0 && !currentPattern.includes(idx)){
+      if(currentPattern.length > 0){
+        const lastCenter = getDotCenter(currentPattern[currentPattern.length-1]);
+        const targetCenter = getDotCenter(idx);
+        const midX = (lastCenter.x + targetCenter.x)/2;
+        const midY = (lastCenter.y + targetCenter.y)/2;
+        for(let i=0;i<9;i++){
+          if(i===idx || currentPattern.includes(i)) continue;
+          const mc = getDotCenter(i);
+          if(Math.hypot(mc.x-midX, mc.y-midY) < 25){
+            currentPattern.push(i);
+            dotPositions[i].el.classList.add('active');
+            drawFull();
+          }
+        }
+      }
+      currentPattern.push(idx);
+      dotPositions[idx].el.classList.add('active');
+      drawFull();
+    }
+  });
+  canvas.addEventListener('mouseup', e=>{
+    if(!isDrawing) return;
+    isDrawing = false;
+    onComplete();
+  });
+  canvas.addEventListener('mouseleave', e=>{
+    if(!isDrawing) return;
+    isDrawing = false;
+    onComplete();
+  });
+
+  // Touch events
+  canvas.addEventListener('touchstart', e=>{
+    if(state !== 'setup1' && state !== 'setup2' && state !== 'unlock') return;
+    e.preventDefault();
+    isDrawing = true;
+    const pos = getPos(e);
+    const idx = findNearestDot(pos);
+    if(idx >= 0){
+      currentPattern = [idx];
+      dotPositions[idx].el.classList.add('active');
+    }
+  }, {passive:false});
+  canvas.addEventListener('touchmove', e=>{
+    if(!isDrawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    drawFull();
+    if(currentPattern.length > 0){
+      const last = getDotCenter(currentPattern[currentPattern.length-1]);
+      ctx.beginPath();
+      ctx.moveTo(last.x, last.y);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.strokeStyle = 'rgba(255,107,43,0.4)';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+    const idx = findNearestDot(pos);
+    if(idx >= 0 && !currentPattern.includes(idx)){
+      if(currentPattern.length > 0){
+        const lastCenter = getDotCenter(currentPattern[currentPattern.length-1]);
+        const targetCenter = getDotCenter(idx);
+        const midX = (lastCenter.x + targetCenter.x)/2;
+        const midY = (lastCenter.y + targetCenter.y)/2;
+        for(let i=0;i<9;i++){
+          if(i===idx || currentPattern.includes(i)) continue;
+          const mc = getDotCenter(i);
+          if(Math.hypot(mc.x-midX, mc.y-midY) < 25){
+            currentPattern.push(i);
+            dotPositions[i].el.classList.add('active');
+            drawFull();
+          }
+        }
+      }
+      currentPattern.push(idx);
+      dotPositions[idx].el.classList.add('active');
+      drawFull();
+    }
+  }, {passive:false});
+  canvas.addEventListener('touchend', e=>{
+    if(!isDrawing) return;
+    isDrawing = false;
+    onComplete();
+  });
+
+  // Reset button (owner only)
+  resetBtn.addEventListener('click', ()=>{
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(OWNER_KEY);
+    savedPattern = null;
+    firstDraw = null;
+    lockEl.classList.remove('unlocked');
+    resetBtn.style.display = 'none';
+    state = 'setup1';
+    showDraw('重新设置手势密码（至少4个点）');
+  });
+
+  // Show reset on unlock (owner only)
+  lockEl.addEventListener('transitionend', ()=>{
+    if(lockEl.classList.contains('unlocked') && localStorage.getItem(OWNER_KEY) === '1'){
+      resetBtn.style.display = 'inline-block';
+    }
+  });
+})();
 </script>
 </body>
 </html>
