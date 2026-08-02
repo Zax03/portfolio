@@ -812,6 +812,7 @@
       display: grid; grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(3, 1fr);
       padding: 20px; gap: 0;
+      pointer-events: none;
     }
     #gesture-lock .gl-dot {
       width: 100%; height: 100%;
@@ -2181,7 +2182,9 @@ document.getElementById('downloadPdfBtn').addEventListener('click', function(e) 
       state = 'unlock';
       showDraw('绘制解锁图案');
     } else {
-      showDraw('暂未设置图案，请在 #setup 模式下设置');
+      // No pattern set yet — enter setup mode directly
+      state = 'setup1';
+      showDraw('首次设置 — 绘制你的手势密码（至少4个点）');
     }
   });
 
