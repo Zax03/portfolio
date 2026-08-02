@@ -735,10 +735,11 @@
     0%,21%{opacity:1} 25%,95%{opacity:0} 100%{opacity:1}
   }
   .silver-slide{opacity:0}
-  .silver-slide:nth-child(1){animation:silverFade 12s infinite 0s}
-  .silver-slide:nth-child(2){animation:silverFade 12s infinite 3s}
-  .silver-slide:nth-child(4){animation:silverFade 12s infinite 6s}
-  .silver-slide:nth-child(6){animation:silverFade 12s infinite 9s}
+  .silver-slide:nth-child(1){animation:silverFade 15s infinite 0s}
+  .silver-slide:nth-child(2){animation:silverFade 15s infinite 3s}
+  .silver-slide:nth-child(4){animation:silverFade 15s infinite 6s}
+  .silver-slide:nth-child(6){animation:silverFade 15s infinite 9s}
+  .silver-slide:nth-child(12){animation:silverFade 15s infinite 12s}
   /* 元梦之星轮播 */
   @keyframes yuanmengFade {
     0%,45%{opacity:1} 50%,95%{opacity:0} 100%{opacity:1}
@@ -1122,6 +1123,8 @@
             <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:#FF6B2B;font-size:11px;padding:2px 8px;border-radius:3px;pointer-events:none;">7 笔记</div>
             <img src="images/silver_08_combined.png" alt="白银之城-8" class="silver-slide" data-lightbox="silver" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
             <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:#FF6B2B;font-size:11px;padding:2px 8px;border-radius:3px;pointer-events:none;">8 笔记</div>
+            <img src="images/silver_09_combined.png" alt="白银之城-9" class="silver-slide" data-lightbox="silver" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+            <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:#FF6B2B;font-size:11px;padding:2px 8px;border-radius:3px;pointer-events:none;">9 笔记</div>
           </div>
             <div class="work-info">
             <h3 class="work-title">白银之城</h3>
@@ -1418,7 +1421,8 @@
       '白银之城-5': '<span class="desc-label">// DESIGN NOTES</span>线性体验中，连续的场景结构延续了玩家探索的惯性，而规则结构中突然出现的不规则现象则会是调动玩家兴趣的有效方式',
       '白银之城-6': '<span class="desc-label">// DESIGN NOTES</span>叙事副本中往往需要涵盖多种玩法来调整探索结构、调节探索节奏，潜行与刺杀属于狭窄区域中体验较为丰富的小型战斗玩法选择，其也能更好的使玩家沉浸在紧张的环境氛围当中。而如果在装饰复杂的环境中，玩家如何发现巡逻怪？如何选择刺杀、躲避路径？如何判断何时应该潜行，都是非常重要的设计课题。',
       '白银之城-7': '<span class="desc-label">// DESIGN NOTES</span>随着后续资产堆积的方式、通道平台等结构的尺寸，能够直观的给玩家带来体验上的变化，作为关卡策划，同时也需要对场景想传达出来的氛围有所把握，能够在场景后续迭代中准确地向美术、音效部门提出符合氛围的设计需求。',
-      '白银之城-8': '<span class="desc-label">// DESIGN NOTES</span>对于开放世界的载具而言，不但作为被高频率使用的交通工具，其也会承载着玩法、商业化的期待，如何做好开放世界环境下的竞技赛事是当下各开放世界游戏的课题。'
+      '白银之城-8': '<span class="desc-label">// DESIGN NOTES</span>对于开放世界的载具而言，不但作为被高频率使用的交通工具，其也会承载着玩法、商业化的期待，如何做好开放世界环境下的竞技赛事是当下各开放世界游戏的课题。',
+      '白银之城-9': '<span class="desc-label">// DESIGN NOTES</span>赛马、赛车这种以载具为主的玩法不单要考虑操控手感、逻辑，同时也需要考虑那些真正能让玩家感受到刺激、兴奋、紧张的"赛事感"！ 让玩家感受到NPC不断冲击领先位置，通过NPC告知玩家赛道的解题思路，让NPC真正能够"陪伴"玩家跑完紧张刺激的全过程等等表现，都标志着NPC是赛事玩法中不可或缺的部分。<br><br>赛道的指引性对于复杂大世界环境下的赛事玩法尤为重要，除却道具、路牌这些明显的指示物，地面铺装、连续灯带等等融入在大世界环境中的铺设也能起到很好的作用。当然，如何处理玩法拉起后的性能表现是大型开放世界游戏共有的课题。'
     };
     const ganDescriptions = {
       '// GENERATIVE PROTOTYPE LIBRARY': '<span class="desc-label">// GENERATIVE PROTOTYPE LIBRARY</span>在虚拟空间中施加生成规则得到的结果，由于各个参数因子影响比重的不同，能够为空间提供丰富的原型库',
