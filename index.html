@@ -742,11 +742,12 @@
   .silver-slide:nth-child(12){animation:silverFade 15s infinite 12s}
   /* 元梦之星轮播 */
   @keyframes yuanmengFade {
-    0%,30%{opacity:1} 33.3%,95%{opacity:0} 100%{opacity:1}
+    0%,22%{opacity:1} 25%,95%{opacity:0} 100%{opacity:1}
   }
-  .yuanmeng-slide:nth-child(1){animation:yuanmengFade 12s infinite 0s}
-  .yuanmeng-slide:nth-child(2){animation:yuanmengFade 12s infinite 4s}
-  .yuanmeng-slide:nth-child(3){animation:yuanmengFade 12s infinite 8s}
+  .yuanmeng-slide:nth-child(1){animation:yuanmengFade 16s infinite 0s}
+  .yuanmeng-slide:nth-child(2){animation:yuanmengFade 16s infinite 4s}
+  .yuanmeng-slide:nth-child(3){animation:yuanmengFade 16s infinite 8s}
+  .yuanmeng-slide:nth-child(4){animation:yuanmengFade 16s infinite 12s}
   /* GAN轮播 */
   @keyframes ganFade {
     0%,30%{opacity:1} 35%,95%{opacity:0} 100%{opacity:1}
@@ -1155,8 +1156,9 @@
             <img src="images/yuanmeng_01.png" alt="元梦之星-1" class="yuanmeng-slide" data-lightbox="yuanmeng" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
             <img src="images/yuanmeng_02.png" alt="元梦之星-2" class="yuanmeng-slide" data-lightbox="yuanmeng" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
             <img src="images/yuanmeng_03.png" alt="元梦之星-3" class="yuanmeng-slide" data-lightbox="yuanmeng" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+            <img src="images/yuanmeng_04.png" alt="元梦之星-4" class="yuanmeng-slide" data-lightbox="yuanmeng" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
             
-            <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:#FF6B2B;font-size:11px;padding:2px 8px;border-radius:3px;pointer-events:none;">3 笔记</div>
+            <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:#FF6B2B;font-size:11px;padding:2px 8px;border-radius:3px;pointer-events:none;">4 笔记</div>
           </div>
           <div class="work-info">
             <h3 class="work-title">元梦之星</h3>
@@ -1415,7 +1417,8 @@
     const yuanmengDescriptions = {
       '元梦之星-1': '<span class="desc-label">// DESIGN NOTES</span>在规划开放世界捉宠类型的项目内容时，如何规划宠物能力的成长非常重要，不同等级段、不同区域的能提供不同移动类型的怪物分布跟玩家的探索方式、探索节奏有很紧密的关联。',
       '元梦之星-2': '<span class="desc-label">// DESIGN NOTES</span>作为这片大陆海拔最高、生存压力最大的后期区域，如何使用视觉语言激起玩家内心的探索欲是一直以来持续探索的方向。<br><br>如何把这样一座巨大无比的山做得有趣？如何能让玩家在单一的色彩中分辨方向？如何能让玩家有效感知到极端天气下的移动能力限制？这些都是创造这片区域时十分有趣的思考因素。',
-      '元梦之星-3': '<span class="desc-label">// DESIGN NOTES</span>在颜色高度统一的大世界区域，重点区域的辨识度非常重要，Landmark、POI等都需要明显的场地，这种场地可以没有明显的构筑物，单从空间结构以及空间流线就能提高其辨识度与探索兴趣。'
+      '元梦之星-3': '<span class="desc-label">// DESIGN NOTES</span>谁不想到达这片大陆的最高点呢？为了能够避免在高处看到远方未加载的大陆、海平面，为了能够增强最高级岛屿的生存、探索难度，无论是通过机制让玩家感知到飞行困难，还是通过浓雾、炫光等特效手段避免给到玩家站在高处看向远方割裂的加载情况，但依旧挡不住玩家向上攀登的心~',
+      '元梦之星-4': '<span class="desc-label">// DESIGN NOTES</span>在颜色高度统一的大世界区域，重点区域的辨识度非常重要，Landmark、POI等都需要明显的场地，这种场地可以没有明显的构筑物，单从空间结构以及空间流线就能提高其辨识度与探索兴趣。'
     };
     const silverDescriptions = {
       '白银之城-1': '<span class="desc-label">// DESIGN NOTES</span>当一个关卡设计师操作角色骑着飞马在充满复杂结构的都市环境中翱翔穿梭的时候，一定会遇到几个关键的问题：<br><br>1. 如何能在复杂碰撞结构的楼群中灵活穿梭<br><br>2. 如何给玩家可接受的行动范围限制',
