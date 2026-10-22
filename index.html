@@ -806,7 +806,7 @@
       .bg-grid, .bg-scanline, .bg-texture, .bg-geo-dots,
       .nav, .hero-flashlight-canvas, .hero-map-texture,
       .corner, .coord, .avatar-rings, .hero-scroll,
-      .lightbox-overlay, #downloadPdfBtn { display: none !important; }
+      .lightbox-overlay { display: none !important; }
       body { background: #fff !important; color: #222 !important; font-size: 11pt !important; }
       section { padding: 30px 0 !important; page-break-inside: avoid; }
       .about { background: #fff !important; }
@@ -830,6 +830,68 @@
       .works-grid { grid-template-columns: 1fr !important; }
       .about-grid { grid-template-columns: 1fr !important; }
     }
+
+    /* ==================== Personal Demo ==================== */
+    .demo-grid {
+      display: grid; grid-template-columns: 360px 1fr; gap: 0;
+      background: #111111; border: 1px solid var(--border);
+      overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+    }
+    .demo-grid:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .demo-preview.work-image {
+      position: relative; background: #1a1a1a; cursor: pointer;
+      height: auto; min-height: 440px; overflow: hidden;
+    }
+    .demo-preview img {
+      width: 100%; height: 100%; object-fit: contain; object-position: center;
+      display: block; padding: 18px;
+    }
+    .demo-preview:hover img { transform: scale(1.02); }
+    .demo-preview img { transition: transform 0.35s; }
+    .demo-badge {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      background: var(--accent); color: #0A0A0A;
+      font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.08em; padding: 4px 9px;
+    }
+    .demo-pages {
+      position: absolute; bottom: 12px; right: 12px; z-index: 2;
+      background: rgba(0,0,0,0.65); color: var(--accent);
+      font-family: var(--font-mono); font-size: 11px; padding: 3px 9px;
+      pointer-events: none;
+    }
+    .demo-body { padding: 28px 30px; display: flex; flex-direction: column; }
+    .demo-meta {
+      font-family: var(--font-mono); font-size: 11px; color: var(--accent);
+      letter-spacing: 0.05em; margin-bottom: 10px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    }
+    .demo-body .work-title { margin-bottom: 12px; }
+    .demo-body .work-desc { font-size: 13px; line-height: 1.75; color: #b8b8b8; margin-bottom: 16px; }
+    .demo-stats {
+      list-style: none; padding: 0; margin: 0 0 18px 0;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 18px;
+    }
+    .demo-stats li { font-size: 12px; color: #cfcfcf; padding-left: 14px; position: relative; }
+    .demo-stats li::before {
+      content: ''; position: absolute; left: 0; top: 7px;
+      width: 5px; height: 5px; background: var(--accent);
+    }
+    .demo-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: auto; }
+    .demo-cta {
+      margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--border);
+      font-size: 12.5px; color: #cfcfcf; line-height: 1.6;
+    }
+    .demo-cta a {
+      color: var(--accent); text-decoration: none; font-weight: 600;
+      border-bottom: 1px solid rgba(255,107,43,0.4);
+    }
+    .demo-cta a:hover { border-bottom-color: var(--accent); }
+    @media (max-width: 768px) {
+      .demo-grid { grid-template-columns: 1fr; }
+      .demo-preview { min-height: 0; }
+      .demo-preview img { max-height: 420px; }
+    }
   </style>
 
 
@@ -848,6 +910,7 @@
         <li><a href="#contact" class="nav-link" data-section="contact">CONTACT</a></li>
         <li><a href="#about" class="nav-link" data-section="about">ABOUT</a></li>
         <li><a href="#works" class="nav-link" data-section="works">WORKS</a></li>
+        <li><a href="#demo" class="nav-link" data-section="demo">PERSONAL DEMO</a></li>
         <li><a href="#architecture" class="nav-link" data-section="architecture">SPACE DESIGN</a></li>
       </ul>
       <button class="nav-menu-btn" id="menuBtn">
@@ -948,12 +1011,6 @@
       <div class="reveal">
         <p class="contact-title">GET IN TOUCH</p>
         <div class="contact-divider"></div>
-        <div style="margin-bottom:32px;">
-      <a href="#" id="downloadPdfBtn" style="display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:13px;color:var(--accent);border:1px solid var(--accent);padding:10px 28px;letter-spacing:0.08em;transition:all 0.3s;text-decoration:none;background:var(--accent-dim);" onmouseover="this.style.background='var(--accent)';this.style.color='var(--bg-primary)'" onmouseout="this.style.background='var(--accent-dim)';this.style.color='var(--accent)'">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        DOWNLOAD PDF
-      </a>
-    </div>
     <div class="contact-links">
           <a href="mailto:510963224@qq.com" class="contact-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1085,6 +1142,7 @@
               <span class="work-tag">载具玩法</span>
               <span class="work-tag">难度曲线</span>
             </div>
+            <a class="work-detail-link" href="silver-palace.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:10px 18px;border:1px solid var(--accent,#FF6B2B);color:var(--accent,#FF6B2B);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:1.5px;text-decoration:none;border-radius:2px;transition:background .25s ease,color .25s ease;" onmouseover="this.style.background='var(--accent,#FF6B2B)';this.style.color='#0a0a0a'" onmouseout="this.style.background='transparent';this.style.color='var(--accent,#FF6B2B)'">查看完整设计笔记 <span aria-hidden="true">→</span></a>
           </div>
         </article>
 
@@ -1174,6 +1232,50 @@
           </div>
         </article>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- 个人独立 Demo Section -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">// PERSONAL DEMO</p>
+        <h2 class="section-title">个人独立 Demo</h2>
+      </div>
+      <div class="demo-grid reveal">
+        <div class="demo-preview work-image">
+          <span class="demo-badge">独立制作 · UE 5.2</span>
+          <img src="images/demo_whitebox.jpg" alt="失律乐园｜关卡白盒总览：四区域动线、节奏曲线与垂直/地下空间 Layout" data-lightbox="demo" style="width:100%;height:100%;object-fit:contain;padding:18px;">
+          <img src="images/demo_gameplay.jpg" alt="失律乐园｜UE5.2 实机：时间冻结球与全局时缓机制下的战斗、移动平台解谜" data-lightbox="demo" style="display:none;">
+          <span class="demo-pages">2 页预览 · 点击放大</span>
+        </div>
+        <div class="demo-body">
+          <div class="demo-meta">PERSONAL PROJECT · 独立开发 · 2026</div>
+          <h3 class="work-title">失律乐园</h3>
+          <p class="work-desc">
+            以「时间」为核心玩法资源的第三人称动作解谜关卡。玩家通过<strong style="color:#E8E8E8;">投掷式时间冻结球</strong>（冻住移动平台、敌人与旋转机关，把动态环境转化为静态踏点/通路）与<strong style="color:#E8E8E8;">全局时缓</strong>（5 倍减速，制造战斗反应与精确跳跃窗口），在四区域「线性叙事 + 散点箱庭」副本中完成约 20 分钟的探索与战斗体验。机制强调「时间即工具」与系统间的可组合反应。
+          </p>
+          <ul class="demo-stats">
+            <li>引擎：Unreal Engine 5.2</li>
+            <li>周期：2 周独立制作</li>
+            <li>类型：第三人称动作解谜</li>
+            <li>规模：4 区域 · 20min 流程</li>
+            <li>核心机制：时停 + 时缓</li>
+            <li>职责：程序 / 关卡 / 3C 全流程</li>
+          </ul>
+          <div class="demo-tags">
+            <span class="work-tag">UE5</span>
+            <span class="work-tag">关卡设计</span>
+            <span class="work-tag">白盒 Layout</span>
+            <span class="work-tag">3C / 战斗</span>
+            <span class="work-tag">机制原型</span>
+            <span class="work-tag">独立开发</span>
+          </div>
+          <div class="demo-cta">
+            上方为设计文档 2 页预览。完整 <strong style="color:#E8E8E8;">16 页关卡设计文档</strong>（世界观到玩法转译、平面/立面白盒 Layout、情绪节奏曲线、怪物与奖励规划、机制整理、后续迭代）可<a href="#contact">联系我</a>后查阅完整作品集。
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2212,12 +2314,5 @@
         /* 初始化 */
     window.dispatchEvent(new Event('scroll'));
   </script>
-<script>
-// PDF下载功能 - 使用浏览器打印为PDF
-document.getElementById('downloadPdfBtn').addEventListener('click', function(e) {
-  e.preventDefault();
-  window.print();
-});
-</script>
 </body>
 </html>
